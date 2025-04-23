@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Utkarsh Tiwari - Computer Science Portfolio</title>
+    <link rel="icon" href="images/favicon1.png" type="image/png">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <!-- Add this right after your existing <link> tags in the <head> section -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+<style>
+    /* Light/Dark Theme Variables */
+    :root {
+        /* Light Theme (Default) */
+        --bg-primary: #f5f5f5;
+        --bg-secondary: #ffffff;
+        --text-primary: #333333;
+        --text-secondary: #666666;
+        --accent-color: #007bff;
+        --card-bg: #ffffff;
+        --card-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        --nav-bg: #ffffff;
+        --nav-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        --header-bg: linear-gradient(135deg, #4a89dc, #5c9ee0);
+        --section-alternate: #f9f9f9;
+        --border-color: #e0e0e0;
+        --footer-bg: #2c3e50;
+        --footer-text: #ffffff;
+        --input-bg: #ffffff;
+        --input-border: #cccccc;
+        --btn-primary: #007bff;
+        --btn-secondary: transparent;
+        --btn-text: #ffffff;
+        --timeline-bg: #ffffff;
+        --timeline-border: #e0e0e0;
+        --timeline-dot: #007bff;
+        --tag-bg: #e9f2ff;
+        --tag-text: #007bff;
+        --skill-border: #e0e0e0;
+        --cert-bg: #ffffff;
+        --cert-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Dark Theme */
+    [data-theme="dark"] {
+        --bg-primary: #1a1a2e;
+        --bg-secondary: #16213e;
+        --text-primary: #e6e6e6;
+        --text-secondary: #b3b3b3;
+        --accent-color: #4ca6ff;
+        --card-bg: #16213e;
+        --card-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        --nav-bg: #0f3460;
+        --nav-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        --header-bg: linear-gradient(135deg, #16213e, #0f3460);
+        --section-alternate: #0f3460;
+        --border-color: #2c3e50;
+        --footer-bg: #0f3460;
+        --footer-text: #e6e6e6;
+        --input-bg: #16213e;
+        --input-border: #2c3e50;
+        --btn-primary: #4ca6ff;
+        --btn-secondary: transparent;
+        --btn-text: #ffffff;
+        --timeline-bg: #16213e;
+        --timeline-border: #2c3e50;
+        --timeline-dot: #4ca6ff;
+        --tag-bg: #0f3460;
+        --tag-text: #4ca6ff;
+        --skill-border: #2c3e50;
+        --cert-bg: #16213e;
+        --cert-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    }
+
+    /* Theme Switch Styles */
+    .theme-switch-wrapper {
+        display: flex;
+        align-items: center;
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        z-index: 1000;
+        background-color: var(--card-bg);
+        padding: 5px 10px;
+        border-radius: 20px;
+        box-shadow: var(--card-shadow);
+    }
+
+    .theme-switch {
+        display: inline-block;
+        position: relative;
+        width: 50px;
+        height: 25px;
+        margin-right: 8px;
+    }
+
+    .theme-switch input {
+        opacity: 0;
+        width: 0;
+        height: 0;
+    }
+
+    .slider {
+        position: absolute;
+        cursor: pointer;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: #ccc;
+        transition: 0.4s;
+        border-radius: 25px;
+    }
+
+    .slider:before {
+        position: absolute;
+        content: "";
+        height: 19px;
+        width: 19px;
+        left: 3px;
+        bottom: 3px;
+        background-color: white;
+        transition: 0.4s;
+        border-radius: 50%;
+    }
+
+    input:checked + .slider {
+        background-color: var(--accent-color);
+    }
+
+    input:checked + .slider:before {
+        transform: translateX(25px);
+    }
+
+    /* Apply dark mode variables to existing elements */
+    body {
+        background-color: var(--bg-primary);
+        color: var(--text-primary);
+        transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    header {
+        background: var(--header-bg);
+        transition: background 0.3s ease;
+    }
+
+    nav#navbar {
+        background-color: var(--nav-bg);
+        box-shadow: var(--nav-shadow);
+        transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    nav#navbar a {
+        color: var(--text-primary);
+        transition: color 0.3s ease;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+        color: var(--text-primary);
+        transition: color 0.3s ease;
+    }
+
+    section {
+        background-color: var(--bg-primary);
+        transition: background-color 0.3s ease;
+    }
+
+    section:nth-child(even) {
+        background-color: var(--section-alternate);
+        transition: background-color 0.3s ease;
+    }
+
+    .about-text p, .project-desc, .project-details li, .cert-issuer {
+        color: var(--text-secondary);
+        transition: color 0.3s ease;
+    }
+
+    .stat-item, .skill-category, .project-card, .cert-card, .education-card, .timeline-content {
+        background-color: var(--card-bg);
+        box-shadow: var(--card-shadow);
+        transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .skill-category h3 {
+        border-bottom: 1px solid var(--skill-border);
+        transition: border-color 0.3s ease;
+    }
+
+    .skill-item {
+        background-color: var(--bg-primary);
+        border: 1px solid var(--border-color);
+        transition: background-color 0.3s ease, border-color 0.3s ease;
+    }
+
+    .tag {
+        background-color: var(--tag-bg);
+        color: var(--tag-text);
+        transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    footer {
+        background-color: var(--footer-bg);
+        transition: background-color 0.3s ease;
+    }
+
+    .contact-form input, .contact-form textarea {
+        background-color: var(--input-bg);
+        border: 1px solid var(--input-border);
+        color: var(--text-primary);
+        transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+    }
+
+    .timeline-dot {
+        background-color: var(--timeline-dot);
+        transition: background-color 0.3s ease;
+    }
+
+    .timeline-content {
+        border: 1px solid var(--timeline-border);
+        transition: border-color 0.3s ease;
+    }
+</style>
+
+    
+</head>
+<body>
+    <div class="theme-switch-wrapper">
+        <label class="theme-switch" for="checkbox">
+            <input type="checkbox" id="checkbox" />
+            <div class="slider">
+                <div class="icons">
+                    <i class="fas fa-moon"></i>
+                    <i class="fas fa-sun"></i>
+                </div>
+            </div>
+        </label>
+        <span id="theme-label">Light</span>
+    </div>
+    <header id="home">
+        <div class="container">
+            <img src="images/profile.jpg" alt="Profile Photo" class="profile-img">
+            <h1 style="color: #F5F5F5; text-shadow: 2px 2px 4px rgba(0,0,0,0.4); font-weight: bold;">
+                Utkarsh Tiwari
+            </h1>
+            <p class="tagline">Computer Science Student | full Stack-Developer | Problem Solver</p>
+        </div>
+    </header>
+    
+    <!-- Navigation -->
+    <nav id="navbar">
+        <div class="container">
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#certifications">Certifications</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+    
+    <!-- About Section -->
+    <section id="about">
+        <div class="container">
+            <h2>About Me</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <p>I am a Computer Science and Engineering student at Lovely Professional University with a strong foundation in programming, data structures, and web technologies. I am passionate about developing efficient solutions and implementing practical applications of technology.</p>
+                    <div class="about-buttons">
+                        <a href="#contact" class="btn primary-btn">Contact Me</a>
+                        <a href="#projects" class="btn secondary-btn">View Projects</a>
+                    </div>
+                </div>
+                <div class="about-stats">
+                    <div class="stat-item">
+                        <span class="stat-number">3+</span>
+                        <span class="stat-title">Projects Completed</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">300+</span>
+                        <span class="stat-title">Problems Solved</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">5+</span>
+                        <span class="stat-title">Certifications</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Skills Section -->
+    <section id="skills">
+        <div class="container">
+            <h2>Skills & Tools</h2>
+            <div class="skills-container">
+                <div class="skill-category">
+                    <h3>Programming Languages</h3>
+                    <div class="skill-items">
+                        <div class="skill-item">
+                            <img src="images/Cpp.png" alt="C++">
+                            <span>C++</span>
+                        </div>
+                        <div class="skill-item">
+                            <img src="images/java.png" alt="Java">
+                            <span>Java</span>
+                        </div>
+                        <div class="skill-item">
+                            <img src="images/javascript.png" alt="JavaScript">
+                            <span>JavaScript</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h3>Technologies & Frameworks</h3>
+                    <div class="skill-items">
+                        <div class="skill-item">
+                            <img src="images/react.png" alt="React JS">
+                            <span>React JS</span>
+                        </div>
+                        <div class="skill-item">
+                            <img src="images/angular.png" alt="Angular">
+                            <span>Angular</span>
+                        </div>
+                        <div class="skill-item">
+                            <img src="images/laravel.png" alt="Laravel">
+                            <span>Laravel</span>
+                        </div>
+                        <div class="skill-item">
+                            <img src="images/git.png" alt="Git">
+                            <span>Git</span>
+                        </div>
+                        <div class="skill-item">
+                            <img src="images/github.png" alt="GitHub">
+                            <span>GitHub</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h3>Core Skills</h3>
+                    <div class="skill-items">
+                        <div class="skill-item">
+                            <img src="images/dsa.png" alt="DSA">
+                            <span>Data Structures & Algorithms</span>
+                        </div>
+                        <div class="skill-item">
+                            <img src="images/problem-solving.png" alt="Problem-Solving">
+                            <span>Problem-Solving</span>
+                        </div>
+                        <div class="skill-item">
+                            <img src="images/teamwork.png" alt="Teamwork">
+                            <span>Teamwork</span>
+                        </div>
+                        <div class="skill-item">
+                            <img src="images/time-management.jpeg" alt="Time Management">
+                            <span>Time Management</span>
+                        </div>
+                        <div class="skill-item">
+                            <img src="images/adaptability.jpeg" alt="Adaptability">
+                            <span>Adaptability</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h3>Databases</h3>
+                    <div class="skill-items">
+                        <div class="skill-item">
+                            <img src="images/mysql.png" alt="MySQL">
+                            <span>MySQL</span>
+                        </div>
+                        <div class="skill-item">
+                            <img src="images/mongodbb.png" alt="MongoDB">
+                            <span>MongoDB</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Projects Section -->
+    <section id="projects">
+        <div class="container">
+            <h2>Projects</h2>
+            <div class="projects-container">
+                <div class="project-card">
+                    <div class="project-img">
+                        <img src="images/resumeanalyzer.png" alt="AI-Powered Resume Analyzer">
+                    </div>
+                    <div class="project-info">
+                        <h3>AI-Powered Resume Analyzer</h3>
+                        <p class="project-tags">
+                            <span class="tag">React.js</span>
+                            <span class="tag">Node.js</span>
+                            <span class="tag">Express.js</span>
+                            <span class="tag">MongoDB</span>
+                            <span class="tag">OpenAI API</span>
+                        </p>
+                        <p class="project-desc">Developed a full-stack web application that analyzes resume using AI and NLP to provide feedback.</p>
+                        <ul class="project-details">
+                            <li>Embedded React.js for an interactive UI, allowing users to upload and analyze resumes seamlessly.</li>
+                            <li>Built a Node.js & Express.js backend to handle file uploads, resume parsing, and AI-powered analysis.</li>
+                            <li>Integrated OpenAI (GPT-4) to generate resume improvement suggestions dynamically.</li>
+                        </ul>
+                        <div class="project-links">
+                            <a href="https://github.com/UtkarshTiwari3542/AI-Resume-Analyzer" class="btn project-btn"><i class="fab fa-github"></i> GitHub</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="project-card">
+                    <div class="project-img">
+                        <img src="images/pricecomparator.png" alt="Price Comparator Website">
+                    </div>
+                    <div class="project-info">
+                        <h3>Price Comparator Website</h3>
+                        <p class="project-tags">
+                            <span class="tag">React.js</span>
+                            <span class="tag">Express.js</span>
+                            <span class="tag">MongoDB</span>
+                            <span class="tag">RapidAPI</span>
+                            <span class="tag">HTML/CSS</span>
+                        </p>
+                        <p class="project-desc">Engineered a real-time price comparison tool leveraging React.js to streamline the user shopping experience.</p>
+                        <ul class="project-details">
+                            <li>Built a robust backend API and integrated MongoDB for scalable product data management.</li>
+                            <li>Utilized Rapid API to fetch real-time product pricing from various e-commerce platforms.</li>
+                            <li>Crafted a responsive and intuitive UI for seamless user experience.</li>
+                        </ul>
+                        <div class="project-links">
+                            <a href="https://github.com/UtkarshTiwari3542/Price-comparator-website" class="btn project-btn"><i class="fab fa-github"></i> GitHub</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="project-card">
+                    <div class="project-img">
+                        <img src="Project/Ecommerce.jpeg" alt="Style Loop E-commerce Website">
+                    </div>
+                    <div class="project-info">
+                        <h3>Style Loop - E-commerce Website</h3>
+                        <p class="project-tags">
+                            <span class="tag">HTML</span>
+                            <span class="tag">CSS</span>
+                            <span class="tag">Bootstrap</span>
+                            <span class="tag">JavaScript</span>
+                            <span class="tag">jQuery</span>
+                            <span class="tag">JSON</span>
+                        </p>
+                        <p class="project-desc">Designed a fully responsive fashion e-commerce website using modern front-end technologies.</p>
+                        <ul class="project-details">
+                            <li>Enriched user interaction with dynamic content rendering through JavaScript and jQuery.</li>
+                            <li>Employed JSON for structured data management enabling faster product load times.</li>
+                            <li>Enhanced website performance through optimized asset loading and minimalistic design approach.</li>
+                        </ul>
+                        <div class="project-links">
+                            <a href="https://github.com/UtkarshTiwari3542/Ecommerce" class="btn project-btn"><i class="fab fa-github"></i> GitHub</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Certifications Section -->
+    <section id="certifications">
+        <div class="container">
+            <h2>Certifications</h2>
+            <div class="certifications-container">
+                <div class="cert-card">
+                    <div class="cert-icon">
+                        <img src="Certificate/Screenshot 2025-04-24 010956.png" alt="Cloud Computing">
+                    </div>
+                    <div class="cert-info">
+                        <h3>Building Web Applications in PHP</h3>
+                        <p class="cert-issuer">Issued by Michigan Univerity - November 2024</p>
+                        <a href="Certificate/Screenshot 2025-04-24 010956.png" class="btn cert-btn">View Certificate</a>
+                    </div>
+                </div>
+                
+                <div class="cert-card">
+                    <div class="cert-icon">
+                        <img src="Certificate/Screenshot 2025-04-23 231437.png" alt="Complete Interview Preparation">
+                    </div>
+                    <div class="cert-info">
+                        <h3>Complete Interview Preparation</h3>
+                        <p class="cert-issuer">Issued by GeeksforGeeks - August 2024</p>
+                        <a href="Certificate/Screenshot 2025-04-23 231437.png" class="btn cert-btn">View Certificate</a>
+                    </div>
+                </div>
+                
+                <div class="cert-card">
+                    <div class="cert-icon">
+                        <img src="/api/placeholder/80/80" alt="The Bits and Bytes of Computer Networking">
+                    </div>
+                    <div class="cert-info">
+                        <h3>The Bits and Bytes of Computer Networking</h3>
+                        <p class="cert-issuer">Issued by Google - November 2023</p>
+                        <a href="#" class="btn cert-btn">View Certificate</a>
+                    </div>
+                </div>
+                
+                <div class="cert-card">
+                    <div class="cert-icon">
+                        <img src="Certificate/Screenshot 2025-04-24 011727.png" alt="Gen AI certifications">
+                    </div>
+                    <div class="cert-info">
+                        <h3>Gen AI Certifications</h3>
+                        <p class="cert-issuer">Issued by DeepLearning.AI, Google Cloud, Vanderbilt University - February 2023</p>
+                        <a href="Certificate/Screenshot 2025-04-24 011727.png" class="btn cert-btn">View Certificate</a>
+                    </div>
+                </div>
+                
+                <div class="cert-card">
+                    <div class="cert-icon">
+                        <img src="Certificate/Screenshot 2025-04-24 012652.png" alt="The Ultimate React Course">
+                    </div>
+                    <div class="cert-info">
+                        <h3>Understanding Cloud Fundamentals</h3>
+                        <p class="cert-issuer">Issued by LinkedIn Learning - February 2023</p>
+                        <a href="Certificate/Screenshot 2025-04-24 012652.png" class="btn cert-btn">View Certificate</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Education Section -->
+    <section id="education">
+        <div class="container">
+            <h2>Education</h2>
+            <div class="education-container">
+                <div class="education-card">
+                    <div class="education-logo">
+                        <img src="images/lpu-logo.png" alt="LPU Logo">
+                    </div>
+                    <div class="education-info">
+                        <h3>Lovely Professional University</h3>
+                        <p class="education-degree">B.Tech in Computer Science and Engineering</p>
+                        <p class="education-duration">2022 - 2026</p>
+                        <p class="education-location">Punjab, India</p>
+                        <p class="education-score">CGPA: 7.67</p>
+                    </div>
+                </div>
+                
+                <div class="education-card">
+                    <div class="education-logo">
+                        <img src="images/download.jpg" alt="LPM Public School Logo">
+                    </div>
+                    <div class="education-info">
+                        <h3>LPM Public School</h3>
+                        <p class="education-degree">Intermediate (Class 12)</p>
+                        <p class="education-duration">2021 - 2022</p>
+                        <p class="education-location">Uttar Pradesh, India</p>
+                        <p class="education-score">Percentage: 74.6%</p>
+                    </div>
+                </div>
+                
+                <div class="education-card">
+                    <div class="education-logo">
+                        <img src="images/st josephs.png" alt="St. Joseph's School Logo">
+                    </div>
+                    <div class="education-info">
+                        <h3>St. Joseph's School</h3>
+                        <p class="education-degree">Matriculation (Class 10)</p>
+                        <p class="education-duration">2019 - 2020</p>
+                        <p class="education-location">Uttar Pradesh, India</p>
+                        <p class="education-score">Percentage: 86%</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Training Section -->
+    <section id="experience">
+        <div class="container">
+            <h2>Training</h2>
+            <div class="experience-container">
+                <div class="experience-timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <h3>Complete Interview Preparation</h3>
+                            <p class="timeline-company">GeeksforGeeks</p>
+                            <p class="timeline-duration">May 2024 – August 2024</p>
+                            <div class="timeline-details">
+                                <ul>
+                                    <li>Completed extensive summer training in Data Structures and Algorithms, focusing on problem-solving and coding interviews.</li>
+                                    <li>Gained expertise in Data Structure and Algorithms, covering topics like arrays, linked lists, trees and graphs.</li>
+                                    <li>Practiced competitive programming with hands-on coding challenges and real-world problems.</li>
+                                    <li>Strengthened understanding of OOPs, DBMS, OS, and System Design concepts.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Contact Section -->
+    <section id="contact" class="dark-section">
+        <div class="container">
+            <h2>Contact Me</h2>
+            <div class="contact-container">
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <h3>Location</h3>
+                        <p>UP, India</p>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-phone"></i>
+                        <h3>Phone</h3>
+                        <p>+91 8604269865</p>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <h3>Email</h3>
+                        <p>tiwariutkarsh345@gmail.com</p>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fab fa-linkedin"></i>
+                        <h3>LinkedIn</h3>
+                        <a href="https://www.linkedin.com/in/utkarsh-tiwari-045994252/">linkedin.com/in/utkarsh-tiwari</a>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fab fa-github"></i>
+                        <h3>GitHub</h3>
+                        <a href="https://github.com/UtkarshTiwari3542">github.com/Utkarsh-Tiwari</a>
+                    </div>
+                </div>
+                
+                <div class="contact-form">
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <label for="name">Name</label>
+                            <input type="text" id="name" name="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="subject">Subject</label>
+                            <input type="text" id="subject" name="subject" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Message</label>
+                            <textarea id="message" name="message" rows="5" required></textarea>
+                        </div>
+                        <button type="submit" class="btn submit-btn">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Resume Download Section -->
+    <section id="resume" class="resume-section">
+        <div class="container">
+            <div class="resume-container">
+                <div class="resume-content">
+                    <h2>Download My Resume</h2>
+                    <p>Get a comprehensive overview of my skills, experience, and qualifications.</p>
+                    <a href="Pdf Folder/finalcv.pdf" class="btn resume-btn">
+                        <i class="fas fa-download"></i> Download Resume
+                    </a>
+                </div>
+                <div class="resume-image">
+                    <img src="Pdf Folder/Screenshot 2025-04-24 014215.png" alt="Resume Preview">
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <h3>Utkarsh Tiwari</h3>
+                    <p>Computer Science Student</p>
+                </div>
+                <div class="footer-links">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#about">About</a></li>
+                        <li><a href="#skills">Skills</a></li>
+                        <li><a href="#projects">Projects</a></li>
+                        <li><a href="#experience">Training</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-social">
+                    <h4>Connect With Me</h4>
+                    <div class="social-icons">
+                        <a href="https://www.linkedin.com/in/utkarsh-tiwari-045994252/"><i class="fab fa-linkedin"></i></a>
+                        <a href="https://github.com/UtkarshTiwari3542"><i class="fab fa-github"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Utkarsh Tiwari. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+    <!-- Back to Top Button -->
+    <a href="#home" class="back-to-top">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+    <!-- JavaScript -->
+    <script src="script.js"></script>
+
+</body>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const toggleSwitch = document.querySelector('#checkbox');
+        const themeLabel = document.querySelector('#theme-label');
+        
+        // Check for saved theme preference or use system preference
+        const currentTheme = localStorage.getItem('theme') || 
+            (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        
+        // Set initial theme
+        if (currentTheme === 'dark') {
+            document.documentElement.setAttribute('data-theme', 'dark');
+            toggleSwitch.checked = true;
+            themeLabel.textContent = 'Dark';
+        }
+        
+        // Listen for toggle switch change
+        toggleSwitch.addEventListener('change', function(e) {
+            if (e.target.checked) {
+                document.documentElement.setAttribute('data-theme', 'dark');
+                localStorage.setItem('theme', 'dark');
+                themeLabel.textContent = 'Dark';
+            } else {
+                document.documentElement.setAttribute('data-theme', 'light');
+                localStorage.setItem('theme', 'light');
+                themeLabel.textContent = 'Light';
+            }
+        });
+    });
+</script>
+</html>
